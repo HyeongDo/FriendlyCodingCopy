@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.mashup.friendlycoding.repository.CodeBlock"/>
+        <import type="com.mashup.friendlycoding.viewmodel.CodeBlockViewModel"/>
+        <import type="com.mashup.friendlycoding.MainActivity"/>
+        <import type="com.mashup.friendlycoding.viewmodel.MovingViewModel" />
+
+        <variable
+            name="codeBlockVM"
+            type="CodeBlockViewModel" />
+        <variable
+            name="movingVM"
+            type="MovingViewModel" />
+        <variable
+            name="codeBlock"
+            type="java.util.ArrayList&lt;CodeBlock&gt;"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/boss"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="20sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@{codeBlockVM.gridImage}" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@{codeBlockVM.monsterImage}" />
+
+            <ImageView
+                android:id="@+id/ivPrincess"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:src="@{codeBlockVM.princessImage}" />
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_code_block_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:text="@string/run"
+            android:textSize="20sp"
+            android:onClick="@{(view)->codeBlockVM.run(view)}"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bt_move"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{codeBlock[0].funcName}"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:onClick="@{() -> codeBlockVM.addNewBlock(codeBlock[0])}"/>
+
+            <TextView
+                android:id="@+id/bt_turnLeft"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{codeBlock[1].funcName}"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:onClick="@{() -> codeBlockVM.addNewBlock(codeBlock[1])}"/>
+
+            <TextView
+                android:id="@+id/bt_turnRight"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{codeBlock[2].funcName}"
+                android:onClick="@{() -> codeBlockVM.addNewBlock(codeBlock[2])}"
+                android:textAllCaps="false"
+                android:textColor="@color/Black" />
+
+            <TextView
+                android:id="@+id/bt_pickAxe"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{codeBlock[3].funcName}"
+                android:onClick="@{() -> codeBlockVM.addNewBlock(codeBlock[3])}"
+                android:textAllCaps="false"
+                android:textColor="@color/Black" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
