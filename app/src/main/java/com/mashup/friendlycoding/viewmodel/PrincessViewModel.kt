@@ -27,7 +27,7 @@ class PrincessViewModel : ViewModel() {
 
     var nowX = 0
     var nowY = 9
-    
+
     private var princessImg: ImageView? = null
     private var win: TextView? = null
     var direction = 1
