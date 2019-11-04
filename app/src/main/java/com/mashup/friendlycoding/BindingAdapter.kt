@@ -41,3 +41,14 @@ fun ImageView.moveObjects(maxHeight : Int) {
         }
     }, 0, 500)
 }
+
+fun ignoreBlanks(code: String): String {
+    var i = 0
+    var start = 0
+    while (code[i] == ' ') {
+        start++
+        i++
+    }
+
+    return code.substring(start)
+}

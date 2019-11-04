@@ -1,8 +1,8 @@
-package com.mashup.friendlycoding
+package com.mashup.friendlycoding.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.mashup.friendlycoding.R
 import com.mashup.friendlycoding.databinding.ActivityTutorialBinding
 import com.mashup.friendlycoding.viewmodel.TutorialViewModel
 

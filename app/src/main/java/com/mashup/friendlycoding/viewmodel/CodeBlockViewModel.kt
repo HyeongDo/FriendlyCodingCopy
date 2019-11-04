@@ -2,32 +2,25 @@ package com.mashup.friendlycoding.viewmodel
 
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import com.mashup.friendlycoding.R
-import com.mashup.friendlycoding.model.Run
-import com.mashup.friendlycoding.repository.CodeBlock
+import com.mashup.friendlycoding.model.RunModel
+
+class CodeBlock(var funcName: String, var argument : Int = 0, var address : Int = 0, var type : Int = 0)
 
 class CodeBlockViewModel : ViewModel() {
-    val monsterImage: Int = R.drawable.monster
-    val princessImage: Int = R.drawable.princess
-    val gridImage: Int = R.drawable.grid2
+    val sunnyImage: Int = R.drawable.ic_sunny
+    var mRun = RunModel()
 
-    private var mRun = Run()
-    private val blockButton = arrayListOf(
-        CodeBlock("move();"),
-        CodeBlock("turnLeft();"),
-        CodeBlock("turnRight();"),
-        CodeBlock("pickAxe();")
-    )
-
-    fun getRunModel(): Run {
+    fun getRunModel(): RunModel {
         return mRun
     }
 
-    fun getBlockButton(): ArrayList<CodeBlock> {
-        return blockButton
+    fun insertBlockModeOff() {
+        mRun.blockInsertMode = false
+        Log.e("해제", "${mRun.blockInsertMode}")
     }
 
     fun clearBlock() {
@@ -35,18 +28,30 @@ class CodeBlockViewModel : ViewModel() {
     }
 
     fun addNewBlock(codeBlock: CodeBlock) {
-        Log.e("${codeBlock.funcName} ", "")
+        Log.e("${codeBlock.funcName} ", "ddddddd")
         mRun.addNewBlock(codeBlock)
     }
 
-    fun deleteBlock(position: Int) {
-        Log.e("삭제합니다", "$position")
-        mRun.deleteBlock(position)
+    fun coloringNowProcessing(view: View?) {
+        if (view == null)
+            return
+        view.setBackgroundResource(R.color.processing)
     }
 
-    //TODO : 최종 CodeBlock 들을 실제 실행하는 함수
-    fun run(view: View) {
-        Log.e("Run", "실행")
+    fun coloringNowTerminated(view: View?) {
+        if (view == null)
+            return
+        view.setBackgroundResource(R.color.Invisible)
+    }
+
+    fun insertBlock(view : View?, funcName: String) {
+        if (view == null)
+            return
+        view.findViewById<TextView>(R.id.insertedBlock).text = "$funcName()"
+    }
+
+    fun run() {
+        Log.e("RunModel", "실행")
         mRun.run()
     }
 }

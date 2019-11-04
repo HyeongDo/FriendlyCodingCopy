@@ -6,36 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.friendlycoding.R
-import com.mashup.friendlycoding.repository.CodeBlock
+import com.mashup.friendlycoding.viewmodel.CodeBlock
 import com.mashup.friendlycoding.viewmodel.CodeBlockViewModel
+import com.mashup.friendlycoding.viewmodel.MapSettingViewModel
 import kotlinx.android.synthetic.main.item_input_code_list.view.*
 
-class InputCodeBlockAdapter(
-    val mCodeBlockViewModel: CodeBlockViewModel,
-    val adapter: CodeBlockAdapter
-) :
-    RecyclerView.Adapter<InputCodeBlockAdapter.ViewHolder>() {
+class InputCodeBlockAdapter(private val mCodeBlockViewModel: CodeBlockViewModel, var inputCodeBlock : ArrayList<CodeBlock>) : RecyclerView.Adapter<InputCodeBlockAdapter.ViewHolder>() {
+        var clickable = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             ViewHolder {
         //보여줄 아이템 개수만큼 View를 생성
         val inflatedView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_input_code_list, parent, false)
         return ViewHolder(inflatedView)
-
     }
 
-    override fun getItemCount() = mCodeBlockViewModel.getBlockButton().size
+    override fun getItemCount() = inputCodeBlock.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        val item = mCodeBlockViewModel.getBlockButton()[position]
-
+        val item = inputCodeBlock[position]
         val listener = View.OnClickListener {
-            mCodeBlockViewModel.addNewBlock(mCodeBlockViewModel.getBlockButton()[position])
-            adapter.notifyDataSetChanged()
-            Log.e("click", "Clicked")
-
+            if (clickable) {
+                mCodeBlockViewModel.addNewBlock(item)
+            }
         }
+
         holder.apply {
             bind(listener, item)
             itemView.tag = item

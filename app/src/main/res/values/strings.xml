@@ -4,4 +4,5 @@
     <string name="run">실행</string>
     <string name="boss">보스를 물리쳐야 해요!</string>
     <string name="clear">Clear</string>
+    <string name="runBoss">보스</string>
 </resources>
