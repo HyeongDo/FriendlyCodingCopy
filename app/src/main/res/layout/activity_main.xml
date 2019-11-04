@@ -148,7 +148,6 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/hp_bar_border"/>
 
-
                 <ImageView
                     android:id="@+id/monster"
                     android:layout_width="200dp"
