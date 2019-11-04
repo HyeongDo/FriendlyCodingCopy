@@ -1,12 +1,7 @@
 package com.mashup.friendlycoding.viewmodel
 
-import android.graphics.drawable.Drawable
-import android.view.View
 import androidx.lifecycle.ViewModel
 
-class StageViewModel(val image: Drawable) : ViewModel(){
+class StageViewModel : ViewModel(){
 
-    fun onClickListener(view: View) {
-
-    }
 }
