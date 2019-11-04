@@ -1,34 +1,96 @@
 package com.mashup.friendlycoding
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.TranslateAnimation
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.friendlycoding.adapter.StageAdapter
 import com.mashup.friendlycoding.databinding.ActivityPlayBinding
 import com.mashup.friendlycoding.databinding.ActivitySelectStageBinding
+import com.mashup.friendlycoding.model.StageItem
 import com.mashup.friendlycoding.viewmodel.BattleViewModel
 import com.mashup.friendlycoding.viewmodel.StageViewModel
+import kotlinx.android.synthetic.main.activity_select_stage.*
 
 class SelectStageActivity : BaseActivity() {
 
-    //private var mStageViewModel = StageViewModel()
+
+    //CHECK를 받아야함
+    var check = 0
+    var key = "key"
+    var up = -500F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_stage)
-        val binding = DataBindingUtil.setContentView<ActivitySelectStageBinding>(this, R.layout.activity_select_stage)
-        binding.lifecycleOwner = this
-        //binding.stageVM = mStageViewModel
 
-        val list = ArrayList<StageViewModel>()
-        list.add(StageViewModel(getDrawable(R.drawable.cave)!!))
-        list.add(StageViewModel(getDrawable(R.drawable.cave)!!))
-        list.add(StageViewModel(getDrawable(R.drawable.cave)!!))
-        list.add(StageViewModel(getDrawable(R.drawable.cave)!!))
-        list.add(StageViewModel(getDrawable(R.drawable.cave)!!))
+        val list = arrayListOf<StageItem>(
+            StageItem("R.drawable.cave"),
+            StageItem("R.drawable.cave"),
+            StageItem("R.drawable.cave"),
+            StageItem("R.drawable.cave"),
+            StageItem("R.drawable.cave")
+        )
 
-        val adapter = StageAdapter(list)
-        binding.recyclerViewStage.adapter = adapter
+        val adapter = StageAdapter(this, list)
+        recyclerViewStage.adapter = adapter
 
+        val lm = LinearLayoutManager(this)
+        recyclerViewStage.layoutManager = lm
+        recyclerViewStage.scrollToPosition(list.size - 1)
+
+        if (check == 0) {
+            recyclerViewStage.scrollToPosition(list.size - 1)
+            recyclerViewStage.isLayoutFrozen = true
+        } else if (check == 1) {
+            recyclerViewStage.scrollToPosition(list.size - 2)
+            up = -700F
+            animateCloud()
+            recyclerViewStage.isLayoutFrozen = true
+        } else if (check == 2) {
+            recyclerViewStage.scrollToPosition(list.size - 3)
+            up = -1000F
+            animateCloud()
+            recyclerViewStage.isLayoutFrozen = true
+        } else if (check == 3) {
+            recyclerViewStage.scrollToPosition(list.size - 5)
+            up = -700F
+            animateCloud()
+            //recyclerviewStage.isLayoutFrozen = true
+        } else if (check == 4) {
+            recyclerViewStage.scrollToPosition(list.size - 5)
+            up = -900F
+            animateCloud()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveStage(key, check)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        check = pref.getInt(key, 0)
+    }
+
+    fun saveStage(key: String, value: Int) {
+        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt(key, value)
+        editor.apply()
+    }
+
+    fun animateCloud() {
+        val cloud: ImageView = findViewById(R.id.cloud)
+        val ani = TranslateAnimation(0F, 0F, 0F, up)
+        ani.duration = 2000
+        ani.fillAfter = true
+        ani.startOffset = 2000
+        cloud.startAnimation(ani)
     }
 }

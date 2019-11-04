@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/stageImage"
-            imageDrawable="@{stageVM.image}"
+            android:src="@drawable/cave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
