@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.friendlycoding.R
 import com.mashup.friendlycoding.adapter.StageAdapter
-import com.mashup.friendlycoding.databinding.ActivitySelectStageBinding
+import com.mashup.friendlycoding.databinding.ActivityMainBinding
 import com.mashup.friendlycoding.model.StageItem
 import com.mashup.friendlycoding.viewmodel.StageViewModel
 import kotlinx.android.synthetic.main.activity_select_stage.*
