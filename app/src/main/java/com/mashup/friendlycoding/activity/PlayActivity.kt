@@ -3,6 +3,7 @@ package com.mashup.friendlycoding.activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.Toast
@@ -40,7 +41,7 @@ class PlayActivity : BaseActivity() {
 
         // Princess View Model과 bind
         binding.princessVM = mPrincessViewModel
-        mPrincessViewModel.setPrincessImage(binding.ivPrincess, binding.tvWin)
+        mPrincessViewModel.setPrincessImage(binding.ivPrincess, binding.tvWin,this)
 
         // Code Block View Model과 bind
         binding.codeBlockVM = mCodeBlockViewModel
@@ -155,6 +156,7 @@ class PlayActivity : BaseActivity() {
 //                        rc_code_block_list.recycledViewPool.clear()
 //                    }
                     mPrincessViewModel.move(t)
+
                 }
             }
         })
