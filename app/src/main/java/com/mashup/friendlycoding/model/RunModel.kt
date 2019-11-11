@@ -388,6 +388,30 @@ class RunModel {
                                     }
                                 }
 
+                                4 -> { //버섯
+                                    if(mPrincess.eatMushroom().toString() < "2"){
+                                        Log.e("분기","${mCodeBlock.value!![IR].address}로!")
+                                        nowTerminated.postValue(IR)
+                                        IR = mCodeBlock.value!![IR].address
+                                    }
+                                }
+
+                                5 -> { //책
+                                    if(!mPrincess.isBook){
+                                        Log.e("분기","${mCodeBlock.value!![IR].address}로!")
+                                        nowProcessing.postValue(IR)
+                                        IR = mCodeBlock.value!![IR].address
+                                    }
+                                }
+
+                                6 -> { //나무
+                                    if(mPrincess.pickBranch().toString() < "2"){
+                                        Log.e("분기","${mCodeBlock.value!![IR].address}로!")
+                                        nowTerminated.postValue(IR)
+                                        IR = mCodeBlock.value!![IR].address
+                                    }
+                                }
+
                                 else -> {
 
                                 }
@@ -418,6 +442,45 @@ class RunModel {
                             monsterAttacked.postValue(true)
                             sleep(speed)
                             monsterAttacked.postValue(false)
+                        }
+
+                        "eatMushroom" -> {
+                            if(mMap.mapList!![x][y] == 4){
+                                mPrincess.eatMushroom()
+                                mMap.eatMushroom(x,y)
+                                changingView = "!$x$y"
+                                moveView.postValue(6)
+                            }else{
+                                moveView.postValue(-3)
+                                return
+                            }
+                            sleep(speed)
+                        }
+
+                        "pickBook" -> {
+                            if(mMap.mapList!![y][x] == 5){
+                                mPrincess.pickBook()
+                                mMap.pickBook(x,y)
+                                changingView = "i$x$y"
+                                moveView.postValue(6)
+                            }else{
+                                moveView.postValue(-3)
+                                return
+                            }
+                            sleep(speed)
+                        }
+
+                        "pickBranch" -> {
+                            if(mMap.mapList!![y][x] == 6){
+                                mPrincess.pickBranch()
+                                mMap.pickBranch(x,y)
+                                changingView = "i$x$y"
+                                moveView.postValue(6)
+                            }else{
+                                moveView.postValue(-3)
+                                return
+                            }
+                            sleep(speed)
                         }
                     }
 

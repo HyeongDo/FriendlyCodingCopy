@@ -104,7 +104,7 @@ class MapSettingModel {
                 val offeredBlock = defaultCodeBlock
                 offeredBlock.addAll(arrayListOf(
                     CodeBlock("isMushroom", type = 3, argument = 4),
-                    CodeBlock("eatMushRoom")
+                    CodeBlock("eatMushroom")
                 ))
 
                 val bossBattleBlock = defaultBattleCodeBlock
@@ -123,6 +123,42 @@ class MapSettingModel {
             }
 
             // 2 -> {} ...
+            21 -> {
+                var mapList = arrayOf(
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0) // 5는 책
+                )
+
+                // 드로어블
+                val mDrawables = MapDrawable(backgroundImg = R.drawable.lake)
+                mDrawables.itemImg = arrayListOf(
+                    arrayOf(5, "86") // 변경
+                )
+
+                // 기본 제공되는 블록
+                val offeredBlock = defaultCodeBlock
+                offeredBlock.addAll(arrayListOf(
+                    CodeBlock("isBook", type = 3, argument = 5),
+                    CodeBlock("pickBook")
+                ))
+
+                return Stage(
+                    Map(mapList, mDrawables),
+                    Princess(),
+                    Monster(1, 100, 0, 0),
+                    offeredBlock
+                )
+
+
+            }
 
             else -> {
                 return Stage(

@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.friendlycoding.R
-import com.mashup.friendlycoding.activity.PlayActivity
-import com.mashup.friendlycoding.activity.StageSelectActivity
+import com.mashup.friendlycoding.activity.SelectStageActivity
 import com.mashup.friendlycoding.model.StageItem
 import kotlinx.android.synthetic.main.item_stage.view.*
 
@@ -35,7 +34,7 @@ class StageAdapter(
             } else if (position == 3) {
                 Log.e("TAG", "${position}번째")
             } else if (position == 4) {
-                val intent = Intent(context, StageSelectActivity::class.java)
+                val intent = Intent(context, SelectStageActivity::class.java)
                 context.startActivity(intent)
                 Log.e("TAG", "${position}번째")
             }

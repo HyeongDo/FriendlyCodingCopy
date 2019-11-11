@@ -4,13 +4,24 @@ package com.mashup.friendlycoding
 class Princess {
     val DPS = 10
     var isPickAxe = false
+    var isBook = false
     private var mushroomCnt = 0
+    private var branchCnt = 0
 
     fun pickAxe() {
         this.isPickAxe = true
     }
 
-    fun eatMushroom () {
+    fun pickBook() {
+        this.isBook = true
+    }
+
+    fun pickBranch() {
+        this.branchCnt++
+    }
+
+    fun eatMushroom() {
         this.mushroomCnt++
     }
+
 }

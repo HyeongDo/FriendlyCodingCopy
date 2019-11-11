@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 //    private var mStageViewModel = StageViewModel()
-    var check = 0
+    var check = 4
     var key = "key"
     var up = -500F
 
