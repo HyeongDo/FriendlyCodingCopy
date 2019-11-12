@@ -28,6 +28,10 @@ class CodeBlockViewModel : ViewModel() {
         mRun.addNewBlock(codeBlock)
     }
 
+    fun deleteBlock(position : Int) {
+        mRun.deleteBlock(position)
+    }
+
     fun coloringNowProcessing(view: View?) {
         if (view == null)
             return

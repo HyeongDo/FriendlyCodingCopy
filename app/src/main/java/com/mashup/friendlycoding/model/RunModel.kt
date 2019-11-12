@@ -145,16 +145,35 @@ class RunModel {
         return false
     }
 
+    fun deleteBlock(position : Int) {
+        IR--
+        mCodeBlock.value!!.removeAt(position)
+        Log.e("삭제", "삭제")
+        for (i in position until mCodeBlock.value!!.size) {
+            Log.e("코드 들이기", mCodeBlock.value!![i].funcName)
+            if (mCodeBlock.value!![i].type == 4) {
+                break
+            } else if (mCodeBlock.value!![i].funcName.substring(0, 4) == "    ") {
+                Log.e("코드 들이기", mCodeBlock.value!![i].funcName)
+                mCodeBlock.value!![i].funcName = mCodeBlock.value!![i].funcName.substring(4)
+            }
+        }
+    }
+
     fun changeBlockLevel(OpenOrClose : Boolean) {
         if (!OpenOrClose) {  // 여는 괄호를 삭제함
             blockLevel--
-            if (bracketStack.isNotEmpty())
+            if (bracketStack.isNotEmpty()) {
                 bracketStack.pop()
+                Log.e("삭제", "여는 괄호")
+            }
         }
 
         else {
             blockLevel++  // 닫는 괄호를 삭제함
             bracketStack.push(tempBracketBuffer)
+            // TODO : 위에 자기와 짝이 맞는 { 문이 없으면 아무것도 안 하기?
+            Log.e("삭제", "닫는 괄호")
         }
     }
 

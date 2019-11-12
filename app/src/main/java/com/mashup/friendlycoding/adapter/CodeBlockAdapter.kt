@@ -44,19 +44,14 @@ class CodeBlockAdapter(
         val listener = View.OnLongClickListener {
             if (clickable) {
                 Toast.makeText(it.context, "${item.funcName}가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                CodeBlocks.removeAt(position)
+
+                //CodeBlocks.removeAt(position)
+                mCodeBlockViewModel.deleteBlock(position)
+
                 if (item.type == 1 || item.type == 2) {
                     mCodeBlockViewModel.changeBlockLevel(false)
-                    for (i in position until CodeBlocks.size) {
-                        Log.e("코드 들이기", CodeBlocks[i].funcName)
-                        if (CodeBlocks[i].type == 4) {
-                            break
-                        } else if (CodeBlocks[i].funcName.substring(0, 4) == "    ") {
-                            Log.e("코드 들이기", CodeBlocks[i].funcName)
-                            CodeBlocks[i].funcName = CodeBlocks[i].funcName.substring(4)
-                        }
-                    }
-                } else if (item.type == 4) {
+                }
+                else if (item.type == 4) {
                     mCodeBlockViewModel.changeBlockLevel(true)
                 }
                 notifyItemRemoved(position)
