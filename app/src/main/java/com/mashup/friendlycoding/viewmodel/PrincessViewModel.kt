@@ -1,9 +1,15 @@
 package com.mashup.friendlycoding.viewmodel
 
+import android.content.Context
+import android.content.res.Resources
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mashup.friendlycoding.R
 
 class PrincessViewModel : ViewModel() {
     var metBoss = MutableLiveData<Boolean>()
@@ -13,6 +19,8 @@ class PrincessViewModel : ViewModel() {
     private var oneBlock = 0f
     private val n = 10
     var width = 0
+
+    private var princessContext: Context? = null
 
     fun move(i: Int) {
         when (i) {
@@ -26,9 +34,10 @@ class PrincessViewModel : ViewModel() {
         }
     }
 
-    fun setPrincessImage(view: ImageView, win: TextView) {
+    fun setPrincessImage(view: ImageView, win: TextView, princessContext: Context) {
         this.princessImg = view
         this.win = win
+        this.princessContext = princessContext
         metBoss.value = false
     }
 
@@ -41,10 +50,34 @@ class PrincessViewModel : ViewModel() {
 
     private fun rotationLeft() {
         // TODO : 공주 사진 변경
+//        val animation =
+//            AnimationUtils.loadAnimation(princessContext, R.anim.rotate_left)
+//        princessImg!!.startAnimation(animation)
     }
 
     private fun rotationRight() {
         // TODO : 공주 사진 변경
+//        val animation =
+//            AnimationUtils.loadAnimation(princessContext, R.anim.rotate_right)
+//        princessImg!!.startAnimation(animation)
+
+
+        //코드로 애니메이션 적용
+//        var screenH=Resources.getSystem().displayMetrics.heightPixels
+//        var screenW=Resources.getSystem().displayMetrics.widthPixels
+//
+//        var x = princessImg!!.pivotX/screenH
+//
+//        var y  = princessImg!!.pivotX/screenW
+//
+//        var rotateAnim = RotateAnimation(
+//            0.0f, 90.0f, Animation.RELATIVE_TO_PARENT, x, Animation.RELATIVE_TO_PARENT, y
+//        )
+//
+//        rotateAnim.duration = 300
+//        rotateAnim.fillAfter = true
+//
+//        princessImg!!.startAnimation(rotateAnim)
     }
 
     private fun go(direction: Int) {
@@ -72,7 +105,7 @@ class PrincessViewModel : ViewModel() {
     }
 
     fun clear() {
-        princessImg!!.x = oneBlock * 0 - oneBlock * 0.1f
-        princessImg!!.y = oneBlock * 9 - oneBlock * 0.23f
+        princessImg!!.x = oneBlock * 0 - oneBlock * 0.05f
+        princessImg!!.y = oneBlock * 9 + oneBlock * 0.1f
     }
 }

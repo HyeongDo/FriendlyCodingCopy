@@ -1,6 +1,7 @@
 package com.mashup.friendlycoding.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,9 @@ import com.mashup.friendlycoding.databinding.ItemCodeBlockListBinding
 import com.mashup.friendlycoding.viewmodel.CodeBlockViewModel
 import kotlinx.android.synthetic.main.item_code_block_list.view.*
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import com.mashup.friendlycoding.ignoreBlanks
 import com.mashup.friendlycoding.model.CodeBlock
 import java.lang.Exception
@@ -39,6 +43,8 @@ class CodeBlockAdapter(
         //holder.bind(CodeBlocks[position], mContext)
         //생성된 View에 보여줄 데이터를 설정
         val item = CodeBlocks[position]
+
+
 
         //길게 눌렀을 때
         val listener = View.OnLongClickListener {
@@ -79,12 +85,61 @@ class CodeBlockAdapter(
             }
         }
 
+
+
         holder.apply {
             bind(listener, type2BlockListener, item)
-            itemView.tag = item
+            //itemView.tag = item
+
+            setCodingStyleColor(holder)
+
         }
     }
 
+    private fun setCodingStyleColor(holder: Holder){
+        var str = holder.itemView.func_name
+        if (str.text=="move();"||str.text=="turnLeft();"||str.text=="turnRight();"){
+
+            val builder = SpannableStringBuilder(str.text)
+            var length = str.text.length
+
+            str.text= ""
+            builder.setSpan(
+                ForegroundColorSpan(Color.parseColor("#ff0000")),
+                length-3,
+                length-1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            builder.setSpan(
+                ForegroundColorSpan(Color.parseColor("#0000ff")),
+                0,
+                length-3,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            str.append(builder)
+        }
+
+        else{
+            val builder = SpannableStringBuilder(str.text)
+            var length = str.text.length
+
+            str.text= ""
+
+
+            builder.setSpan(
+                ForegroundColorSpan(Color.parseColor("#00ff00")),
+                0,
+                length-1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            str.append(builder)
+        }
+        //str.setTextColor(Color.parseColor("#FF0000"))
+
+    }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var view: View = itemView
 
