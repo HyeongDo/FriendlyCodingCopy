@@ -45,7 +45,6 @@ class CodeBlockAdapter(
         val item = CodeBlocks[position]
 
 
-
         //길게 눌렀을 때
         val listener = View.OnLongClickListener {
             if (clickable) {
@@ -89,62 +88,125 @@ class CodeBlockAdapter(
 
         holder.apply {
             bind(listener, type2BlockListener, item)
-            //itemView.tag = item
+            itemView.tag = item
 
-            setCodingStyleColor(holder)
+            //setCodingStyleColor(holder)
 
+            setCodingStyleColor(holder,item)
         }
     }
 
-    private fun setCodingStyleColor(holder: Holder){
+    private fun setCodingStyleColor(holder: Holder,codeBlock: CodeBlock) {
+        var viewType =codeBlock.type
+
+        var viewFuncName :String = codeBlock.funcName
+
+
         var str = holder.itemView.func_name
-        if (str.text=="move();"||str.text=="turnLeft();"||str.text=="turnRight();"){
+        when(viewType){
+            0->{
+                val builder = SpannableStringBuilder(viewFuncName)
+                var length = viewFuncName.length
 
-            val builder = SpannableStringBuilder(str.text)
-            var length = str.text.length
+                str.text = ""
+                builder.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#ff0000")),
+                    length - 3,
+                    length - 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
-            str.text= ""
-            builder.setSpan(
-                ForegroundColorSpan(Color.parseColor("#ff0000")),
-                length-3,
-                length-1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                builder.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#0000ff")),
+                    0,
+                    length - 3,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
-            builder.setSpan(
-                ForegroundColorSpan(Color.parseColor("#0000ff")),
-                0,
-                length-3,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                str.append(builder)
+            }
+            1->{
+                val builder = SpannableStringBuilder(viewFuncName)
+                var length = viewFuncName.length
 
-            str.append(builder)
+                str.text = ""
+                builder.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#00ff00")),
+                    0,
+                    3,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+//                builder.setSpan(
+//                    ForegroundColorSpan(Color.parseColor("#00ffff")),
+//                    0,
+//                    length - 3,
+//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//                )
+
+                str.append(builder)
+            }
         }
-
-        else{
-            val builder = SpannableStringBuilder(str.text)
-            var length = str.text.length
-
-            str.text= ""
-
-
-            builder.setSpan(
-                ForegroundColorSpan(Color.parseColor("#00ff00")),
-                0,
-                length-1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            str.append(builder)
-        }
-        //str.setTextColor(Color.parseColor("#FF0000"))
-
     }
+
+//
+//    private fun setCodingStyleColor(holder: Holder) {
+//        var str = holder.itemView.func_name
+//        if (str.text == "move();" || str.text == "turnLeft();" || str.text == "turnRight();") {
+//
+//            val builder = SpannableStringBuilder(str.text)
+//            var length = str.text.length
+//
+//            str.text = ""
+//            builder.setSpan(
+//                ForegroundColorSpan(Color.parseColor("#ff0000")),
+//                length - 3,
+//                length - 1,
+//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//
+//            builder.setSpan(
+//                ForegroundColorSpan(Color.parseColor("#0000ff")),
+//                0,
+//                length - 3,
+//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//
+//            str.append(builder)
+//        } else {
+//            val builder = SpannableStringBuilder(str.text)
+//            var length = str.text.length
+//
+//            str.text = ""
+//
+//
+//            builder.setSpan(
+//                ForegroundColorSpan(Color.parseColor("#00ff00")),
+//                0,
+//                length - 1,
+//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//
+//            str.append(builder)
+//        }
+//        //str.setTextColor(Color.parseColor("#FF0000"))
+//
+//    }
+
+
+
+
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var view: View = itemView
 
-        fun bind(listener: View.OnLongClickListener, type2BlockListener: View.OnClickListener, codeBlock: CodeBlock) {
-            view.func_name.text = codeBlock.funcName
+        fun bind(
+            listener: View.OnLongClickListener,
+            type2BlockListener: View.OnClickListener,
+            codeBlock: CodeBlock
+        ) {
+            //view.func_name.text = codeBlock.funcName
+
+
 
             if (codeBlock.type == 2)
                 view.end.text = "{"
@@ -164,20 +226,28 @@ class CodeBlockAdapter(
                 view.end.text = ") {"
 
                 view.argument.addTextChangedListener(object : TextWatcher {
-                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
                         try {
                             codeBlock.argument = s.toString().toInt()
+                        } catch (e: Exception) {
                         }
-                        catch (e: Exception) { }
                     }
 
                     override fun afterTextChanged(arg0: Editable) {}
-                    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
                     }
                 })
-            }
-
-            else {
+            } else {
                 view.argument.isVisible = false
                 view.argument.isClickable = false
             }

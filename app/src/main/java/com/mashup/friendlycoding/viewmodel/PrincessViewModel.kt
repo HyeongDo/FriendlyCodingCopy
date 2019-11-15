@@ -20,15 +20,29 @@ class PrincessViewModel : ViewModel() {
     private val n = 10
     var width = 0
 
+    private var direction = 0
+
     private var princessContext: Context? = null
 
     fun move(i: Int) {
         when (i) {
             -1 -> clear()
-            0 -> go(0)  // up
-            1 -> go(1)  // right
-            2 -> go(2)  // down
-            3 -> go(3)  // left
+            0 -> {
+                go(0)
+                direction = 0
+            }// up
+            1 -> {
+                go(1)
+                direction = 1
+            }  // right
+            2 -> {
+                go(2)
+                direction = 2
+            }  // down
+            3 -> {
+                go(3)
+                direction = 3
+            }  // left
             4 -> rotationLeft()
             5 -> rotationRight()
         }
@@ -50,16 +64,16 @@ class PrincessViewModel : ViewModel() {
 
     private fun rotationLeft() {
         // TODO : 공주 사진 변경
-//        val animation =
-//            AnimationUtils.loadAnimation(princessContext, R.anim.rotate_left)
-//        princessImg!!.startAnimation(animation)
+        val animation =
+            AnimationUtils.loadAnimation(princessContext, R.anim.rotate_left)
+        princessImg!!.startAnimation(animation)
     }
 
     private fun rotationRight() {
         // TODO : 공주 사진 변경
-//        val animation =
-//            AnimationUtils.loadAnimation(princessContext, R.anim.rotate_right)
-//        princessImg!!.startAnimation(animation)
+        val animation =
+            AnimationUtils.loadAnimation(princessContext, R.anim.rotate_right)
+        princessImg!!.startAnimation(animation)
 
 
         //코드로 애니메이션 적용
