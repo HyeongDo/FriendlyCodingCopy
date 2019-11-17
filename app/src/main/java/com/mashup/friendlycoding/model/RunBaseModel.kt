@@ -37,7 +37,7 @@ open class RunBaseModel {
 
     var insertBlockPosition = 0
     var insertedBlock: String? = null   // 삽입된 코드 블록의 이름
-    var changingView: String? = null    // 아이템을 주웠거나 아이템이 파괴됐을시 해당 아이템의 ID를 MainActivity에게 알려준다.
+    var changingView: Int = 0   // 아이템을 주웠거나 아이템이 파괴됐을시 해당 아이템의 ID를 MainActivity에게 알려준다.
 
     var jumpTo = 0 // jump 할 주소
     var IR = 0  // 명령어 실행할 주소

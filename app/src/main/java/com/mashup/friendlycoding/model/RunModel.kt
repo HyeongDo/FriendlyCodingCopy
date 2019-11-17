@@ -203,7 +203,7 @@ class RunModel : RunBaseModel() {
                             if (mMap.mapList!![y][x] == 3) {
                                 mPrincess.pickAxe()
                                 mMap.itemPicked(y, x)
-                                changingView = "i$x$y"    // 아이템 뷰의 아이디는 i + x좌표 + y좌표 이다.
+                                //changingView = "i$x$y"    // 아이템 뷰의 아이디는 i + x좌표 + y좌표 이다.
                                 moveView.postValue(6)
                             } else {
                                 moveView.postValue(-3)
@@ -220,7 +220,12 @@ class RunModel : RunBaseModel() {
                         }
 
                         "eatMushroom();" -> {
-                            if(true){
+
+                            Log.e("현재 좌표 = $y, $x" , "발밑 ${mMap.mapList!![y][x]}")
+                            if(mMap.mapList!![y][x]%10 == 4){
+                                mPrincess.eatMushroom()
+                                changingView = mMap.mapList!![y][x]/10
+                                mMap.itemPicked(y, x)
                                 moveView.postValue(6)
                             }else{
                                 moveView.postValue(-3)
@@ -245,10 +250,12 @@ class RunModel : RunBaseModel() {
 
                         "pickBook();" -> {
                             Log.e("책을 줍습니다.", "공주 밑엔 ${mMap.mapList!![y][x]}")
-                            if (mMap.mapList!![y][x] == 5) {
+                            if (mMap.mapList!![y][x]%10 == 5) {
                                 mPrincess.pickBook()
+                                changingView = mMap.mapList!![y][x]/10
                                 mMap.itemPicked(y, x)
-                                changingView = "i$x$y"
+//                                mMap.itemPicked(y, x)
+//                                changingView = "i$x$y"
                                 moveView.postValue(6)
                             } else {
                                 moveView.postValue(-3)
@@ -258,10 +265,12 @@ class RunModel : RunBaseModel() {
                         }
 
                         "pickBranch();" -> {
-                            if (mMap.mapList!![y][x] == 6) {
+                            if (mMap.mapList!![y][x]%10 == 6) {
                                 mPrincess.pickBranch()
+                                changingView = mMap.mapList!![y][x]/10
                                 mMap.itemPicked(y, x)
-                                changingView = "i$x$y"
+//                                mMap.itemPicked(y, x)
+//                                changingView = "i$x$y"
                                 moveView.postValue(6)
                             } else {
                                 moveView.postValue(-3)

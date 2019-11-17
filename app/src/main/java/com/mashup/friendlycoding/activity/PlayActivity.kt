@@ -2,6 +2,7 @@ package com.mashup.friendlycoding.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -131,24 +132,28 @@ class PlayActivity : BaseActivity() {
                 }
 
                 6 -> { //버섯 습득, 변경
-                    Log.e("내위치","${mRun.x},${mRun.y}")
-                    if(mMapSettingViewModel.mDrawables.item[0].X == mRun.y &&
-                            mMapSettingViewModel.mDrawables.item[0].Y == mRun.x){
-                        Log.e("아이템위치","${mMapSettingViewModel.mDrawables.item[0].Y}," +
-                                "${mMapSettingViewModel.mDrawables.item[0].X}")
-                        binding.item1.visibility = View.GONE
-                        //Todo: 상단에 먹은 갯수 변수 추가
-                        mRun.mPrincess.eatMushroom()
-                        Log.e("버섯 먹은 갯수:","${mRun.mPrincess.mushroomCnt}")
-                        Toast.makeText(this,"${mRun.mPrincess.mushroomCnt}개를 먹었어요!",Toast.LENGTH_LONG).show()
-                    }else if(mMapSettingViewModel.mDrawables.item[1].X == mRun.y &&
-                            mMapSettingViewModel.mDrawables.item[1].Y == mRun.x){
-                        Log.e("독버섯위치","${mMapSettingViewModel.mDrawables.item[1].Y}," +
-                                "${mMapSettingViewModel.mDrawables.item[1].X}")
-                        mRun.mPrincess.eatMushroomPoision()
-                        binding.item2.visibility = View.GONE
-                        mRun.clearBlock()
-                    }
+//                    Log.e("내위치","${mRun.x},${mRun.y}")
+//                    if(mMapSettingViewModel.mDrawables.item[0].X == mRun.y &&
+//                            mMapSettingViewModel.mDrawables.item[0].Y == mRun.x){
+//                        Log.e("아이템위치","${mMapSettingViewModel.mDrawables.item[0].Y}," +
+//                                "${mMapSettingViewModel.mDrawables.item[0].X}")
+//                        binding.item1.visibility = View.GONE
+//                        //Todo: 상단에 먹은 갯수 변수 추가
+//                        mRun.mPrincess.eatMushroom()
+//                        Log.e("버섯 먹은 갯수:","${mRun.mPrincess.mushroomCnt}")
+//                        Toast.makeText(this,"${mRun.mPrincess.mushroomCnt}개를 먹었어요!",Toast.LENGTH_LONG).show()
+//                    }else if(mMapSettingViewModel.mDrawables.item[1].X == mRun.y &&
+//                            mMapSettingViewModel.mDrawables.item[1].Y == mRun.x){
+//                        Log.e("독버섯위치","${mMapSettingViewModel.mDrawables.item[1].Y}," +
+//                                "${mMapSettingViewModel.mDrawables.item[1].X}")
+//                        Toast.makeText(this,"독버섯을 먹었어요!",Toast.LENGTH_LONG).show()
+//                        mRun.mPrincess.eatMushroomPoision()
+//                        binding.item2.visibility = View.GONE
+//                        mRun.clearBlock()
+//                    }
+                    var itemNumber = resources.getIdentifier("item_" + mRun.changingView.toString(), "id", packageName)
+                    Log.e("습득된 아이템", "item_" + mRun.changingView.toString())
+                    findViewById<ImageView>(itemNumber).isVisible = false
                 }
 
                 7 -> {  // 패배
