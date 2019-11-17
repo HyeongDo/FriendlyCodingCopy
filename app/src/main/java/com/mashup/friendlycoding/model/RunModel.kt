@@ -1,7 +1,9 @@
 package com.mashup.friendlycoding.model
 
 import android.util.Log
+import android.view.View
 import com.mashup.friendlycoding.ignoreBlanks
+import com.mashup.friendlycoding.viewmodel.MapSettingViewModel
 
 class RunModel : RunBaseModel() {
     fun collisionCheck(): Boolean {   // 벽이나 보스와의 충돌 감지
@@ -218,16 +220,26 @@ class RunModel : RunBaseModel() {
                         }
 
                         "eatMushroom();" -> {
-                            Log.e("버섯을 먹습니다.", "공주 밑엔 ${mMap.mapList!![y][x]}")
-                            if (mMap.mapList!![y][x] == 4) {
-                                mPrincess.eatMushroom()
-                                mMap.itemPicked(y, x)
-                                changingView = "i$x$y"
+                            if(true){
                                 moveView.postValue(6)
-                            } else {
+                            }else{
                                 moveView.postValue(-3)
                                 return
                             }
+//                            if (mMap.mapList!![y][x] == 4) {
+//                                Log.e("버섯을 먹습니다.", "버섯 갯수 : ${mPrincess.mushroomCnt}")
+//                                mPrincess.eatMushroom()
+//                                mMap.itemPicked(y, x)
+//                                changingView = "i$x$y"
+//                                moveView.postValue(6)
+//                            }else if(mMap.mapList!![y][x] == 8){
+//                                Log.e("독버섯을 먹었습니다.","")
+//                                mPrincess.eatMushroomPoision()
+//                                moveView.postValue(-1)
+//                            }else {
+//                                moveView.postValue(-3)
+//                                return
+//                            }
                             sleep(speed)
                         }
 
@@ -333,9 +345,20 @@ class RunModel : RunBaseModel() {
                                             IR = mCodeBlock.value!![IR].address
                                         }
                                     }
+
+                                    8 -> { //독버섯
+                                        if(!mPrincess.isMushroomPoision){
+                                            Log.e("분기","${mCodeBlock.value!![IR].address}로!")
+                                            nowTerminated.postValue(IR)
+                                            IR = mCodeBlock.value!![IR].address
+                                        }
+                                    }
+
                                     else -> {
 
                                     }
+
+
                                 }
                                 sleep(speed)
                             }

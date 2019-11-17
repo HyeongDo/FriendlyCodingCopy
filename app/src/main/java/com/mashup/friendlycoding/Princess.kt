@@ -5,6 +5,7 @@ class Princess {
     val DPS = 10
     var isPickAxe = false
     var isBook = false
+    var isMushroomPoision = false
     var mushroomCnt = 0
     var branchCnt = 0
 
@@ -17,10 +18,14 @@ class Princess {
     }
 
     fun eatMushroom() {
-        this.mushroomCnt++
+        ++this.mushroomCnt
     }
 
     fun pickBranch() {
-        this.branchCnt++
+        ++this.branchCnt
+    }
+
+    fun eatMushroomPoision(){
+        this.isMushroomPoision = true
     }
 }

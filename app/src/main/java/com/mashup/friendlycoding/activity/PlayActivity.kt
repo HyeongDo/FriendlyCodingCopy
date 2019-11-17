@@ -14,6 +14,8 @@ import com.mashup.friendlycoding.adapter.CodeBlockAdapter
 import com.mashup.friendlycoding.adapter.InputCodeBlockAdapter
 import com.mashup.friendlycoding.databinding.ActivityPlayBinding
 import com.mashup.friendlycoding.model.CodeBlock
+import com.mashup.friendlycoding.model.MapSettingModel
+import com.mashup.friendlycoding.model.RunModel
 import com.mashup.friendlycoding.viewmodel.BattleViewModel
 import com.mashup.friendlycoding.viewmodel.CodeBlockViewModel
 import com.mashup.friendlycoding.viewmodel.MapSettingViewModel
@@ -36,7 +38,6 @@ class PlayActivity : BaseActivity() {
         )
         binding.lifecycleOwner = this
 
-
         layoutMainView = this.findViewById(R.id.constraintLayout)
 
         // Princess View Model과 bind
@@ -57,7 +58,6 @@ class PlayActivity : BaseActivity() {
 
         mRun.mMap = stageInfo.map
         mRun.mPrincess = stageInfo.princess
-
         // 코드 블록의 리사이클러 뷰 연결
         val mAdapter = CodeBlockAdapter(this, mRun.mCodeBlock.value!!, mCodeBlockViewModel)
         val linearLayoutManager = LinearLayoutManager(this)
@@ -130,11 +130,25 @@ class PlayActivity : BaseActivity() {
                     clickableControl(true, mAdapter, mInputdapter)
                 }
 
-                6 -> {  // 곡괭이의 습득
-                    val changingViewID =
-                        resources.getIdentifier(mRun.changingView, "id", packageName)
-                    Log.e("ID", mRun.changingView!!)
-                    findViewById<ImageView>(changingViewID).isVisible = false
+                6 -> { //버섯 습득, 변경
+                    Log.e("내위치","${mRun.x},${mRun.y}")
+                    if(mMapSettingViewModel.mDrawables.item[0].X == mRun.y &&
+                            mMapSettingViewModel.mDrawables.item[0].Y == mRun.x){
+                        Log.e("아이템위치","${mMapSettingViewModel.mDrawables.item[0].Y}," +
+                                "${mMapSettingViewModel.mDrawables.item[0].X}")
+                        binding.item1.visibility = View.GONE
+                        //Todo: 상단에 먹은 갯수 변수 추가
+                        mRun.mPrincess.eatMushroom()
+                        Log.e("버섯 먹은 갯수:","${mRun.mPrincess.mushroomCnt}")
+                        Toast.makeText(this,"${mRun.mPrincess.mushroomCnt}개를 먹었어요!",Toast.LENGTH_LONG).show()
+                    }else if(mMapSettingViewModel.mDrawables.item[1].X == mRun.y &&
+                            mMapSettingViewModel.mDrawables.item[1].Y == mRun.x){
+                        Log.e("독버섯위치","${mMapSettingViewModel.mDrawables.item[1].Y}," +
+                                "${mMapSettingViewModel.mDrawables.item[1].X}")
+                        mRun.mPrincess.eatMushroomPoision()
+                        binding.item2.visibility = View.GONE
+                        mRun.clearBlock()
+                    }
                 }
 
                 7 -> {  // 패배

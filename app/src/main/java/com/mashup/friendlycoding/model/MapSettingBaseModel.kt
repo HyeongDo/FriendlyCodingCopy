@@ -33,7 +33,8 @@ open class MapSettingBaseModel {
     )
     var stageCodeBlock2_2 = arrayListOf(
         CodeBlock("isMushroom()", type = 3, argument = 4),
-        CodeBlock("eatMushroom();")
+        CodeBlock("eatMushroom();"),
+        CodeBlock("isMushroomPoision()", type = 3, argument = 8)
     )
     var stageCodeBlock2_3 = arrayListOf(
         CodeBlock("isBranch()", type = 3, argument = 6),

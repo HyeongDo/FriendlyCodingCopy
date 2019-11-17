@@ -13,7 +13,7 @@ class MapSettingModel : MapSettingBaseModel() {
             while (true) {
                 val a = rand(0, 10)
                 val b = rand(0, 10)
-                if (mapList[a][b] == 0) {
+                if (mapList[a][b] != 1 && mapList[a][b] != 2) {
                     mapList[a][b] = mDrawables.item[i].item_id
                     mDrawables.item[i].X = a
                     mDrawables.item[i].Y = b

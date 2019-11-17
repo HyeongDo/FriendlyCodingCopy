@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class PrincessViewModel : ViewModel() {
     var metBoss = MutableLiveData<Boolean>()
-    private var princessImg: ImageView? = null
+    var princessImg: ImageView? = null
     private var win: TextView? = null
     private var oneBlock = 0f
     private val n = 10
