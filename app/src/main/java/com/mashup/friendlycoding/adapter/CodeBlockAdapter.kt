@@ -73,81 +73,53 @@ class CodeBlockAdapter(
             bind(listener, type2BlockListener, item)
             itemView.tag = item
 
-            setCodingStyleColor(holder,item)
+            setCodingStyleColor(holder, item)
         }
     }
-    private fun setCodingStyleColor(holder: Holder,codeBlock: CodeBlock) {
+
+    private fun setCodingStyleColor(holder: Holder, codeBlock: CodeBlock) {
         val viewType = codeBlock.type
-        var viewFuncName :String = codeBlock.funcName
+        var viewFuncName: String = codeBlock.funcName
         var str = holder.itemView.func_name
-        when(viewType){
-            0->{
-                if (ignoreBlanks(codeBlock.funcName) == "}") {
-                    return
-                }
+        val codeBlue = mContext.resources.getString(R.string.codeBlue)
+        when (viewType) {
 
+            1 -> {//for
                 val builder = SpannableStringBuilder(viewFuncName)
-                val length = viewFuncName.length
-
+                var length = viewFuncName.length
                 str.text = ""
+
                 builder.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#ff0000")),
-                    length - 3,
+                    ForegroundColorSpan(Color.parseColor(codeBlue)),
+                    0,
                     length - 1,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
 
-                builder.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#0000ff")),
-                    0,
-                    length - 3,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
                 str.append(builder)
+
             }
-            1->{//for
+            2, 4 -> {//if,while
                 val builder = SpannableStringBuilder(viewFuncName)
                 var length = viewFuncName.length
-
-                val temper = "){"
-                val builder2 = SpannableStringBuilder(temper)
-                var length2 = temper.length
-
-                var str2 = holder.itemView.end
-
+                var cnt = 0 //공백 카운트
                 str.text = ""
-                str2.text = ""
+
+                for (i in viewFuncName.indices) {
+                    if (viewFuncName[i] === ' ') {
+                        cnt++
+                    }
+                }
                 builder.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#00ff00")),
-                    0,
-                    length-1,
+                    ForegroundColorSpan(Color.parseColor(codeBlue)),
+                    cnt,
+                    length - 2,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
 
-                builder.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#0000ff")),
-                    length-1,
-                    length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
-                builder2.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#0000ff")),
-                    0,
-                    length2-1,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
-//                builder.setSpan(
-//                    ForegroundColorSpan(Color.parseColor("#00ffff")),
-//                    0,
-//                    length - 3,
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
 
                 str.append(builder)
-                str2.append(builder2)
+
             }
         }
     }
@@ -155,9 +127,13 @@ class CodeBlockAdapter(
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var view: View = itemView
 
-        fun bind(listener: View.OnLongClickListener, type2BlockListener: View.OnClickListener, codeBlock: CodeBlock) {
+        fun bind(
+            listener: View.OnLongClickListener,
+            type2BlockListener: View.OnClickListener,
+            codeBlock: CodeBlock
+        ) {
             view.func_name.text = codeBlock.funcName
-            view.lineCount.text = (position+1).toString()
+            view.lineCount.text = (position + 1).toString()
             if (codeBlock.type == 2 || codeBlock.type == 4)
                 view.end.text = "{"
             else {
@@ -176,19 +152,28 @@ class CodeBlockAdapter(
                 view.end.text = ") {"
 
                 view.argument.addTextChangedListener(object : TextWatcher {
-                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
                         try {
                             codeBlock.argument = s.toString().toInt()
+                        } catch (e: Exception) {
                         }
-                        catch (e: Exception) { }
                     }
 
                     override fun afterTextChanged(arg0: Editable) {}
-                    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
                     }
                 })
-            }
-            else {
+            } else {
                 view.argument.isVisible = false
                 view.argument.isClickable = false
             }

@@ -42,7 +42,7 @@ class PlayActivity : BaseActivity() {
         binding.lifecycleOwner = this
         mp = MediaPlayer.create(this, R.raw.stage2)
         mp!!.isLooping = true
-        //mp!!.start()
+        mp!!.start()
 
         layoutMainView = this.findViewById(R.id.constraintLayout)
 
@@ -86,22 +86,22 @@ class PlayActivity : BaseActivity() {
 
         when (stageNum) {
             21 -> {
-                binding.tvCount.setText("Count = ")
-                binding.tvCountSet.setText("${mRun.mPrincess.branchCnt}")
-                binding.tvState.setText("Book = ")
-                binding.tvStateSet.setText("${mRun.mPrincess.isBook}")
+                binding.tvCount.text = "Count = "
+                binding.tvCountSet.text = "${mRun.mPrincess.branchCnt}"
+                binding.tvState.text = "Book = "
+                binding.tvStateSet.text = "${mRun.mPrincess.isBook}"
             }
             22 -> {
-                binding.tvCount.setText("Count = ")
-                binding.tvCountSet.setText("${mRun.mPrincess.mushroomCnt}")
-                binding.tvState.setText("Mushroom = ")
-                binding.tvStateSet.setText("${mRun.mPrincess.isMushroom}")
+                binding.tvCount.text = "Count = "
+                binding.tvCountSet.text = "${mRun.mPrincess.mushroomCnt}"
+                binding.tvState.text = "Mushroom = "
+                binding.tvStateSet.text = "${mRun.mPrincess.isMushroom}"
             }
             23 -> {
-                binding.tvCount.setText("Count = ")
-                binding.tvCountSet.setText("${mRun.mPrincess.branchCnt}")
-                binding.tvState.setText("Branch = ")
-                binding.tvStateSet.setText("${mRun.mPrincess.isBranch}")
+                binding.tvCount.text = "Count = "
+                binding.tvCountSet.text = "${mRun.mPrincess.branchCnt}"
+                binding.tvState.text = "Branch = "
+                binding.tvStateSet.text = "${mRun.mPrincess.isBranch}"
             }
         }
 
@@ -327,7 +327,7 @@ class PlayActivity : BaseActivity() {
                 mBattleViewModel!!.init()
                 mRun.mMonster = stageInfo.monster
                 binding.battleVM = mBattleViewModel
-                Toast.makeText(this, "보스를 만났어요", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "보스를 만났어요", Toast.LENGTH_SHORT).show()
                 rc_input_code.adapter = InputCodeBlockAdapter(
                     mCodeBlockViewModel,
                     mMapSettingViewModel.bossBattleBlock!!
@@ -336,7 +336,7 @@ class PlayActivity : BaseActivity() {
             } else {
                 mBattleViewModel = null
                 binding.battleVM = null
-                Toast.makeText(this, "보스를 물리쳤어요", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "보스를 물리쳤어요", Toast.LENGTH_SHORT).show()
                 rc_input_code.adapter =
                     InputCodeBlockAdapter(mCodeBlockViewModel, mMapSettingViewModel.offeredBlock)
             }
@@ -354,10 +354,7 @@ class PlayActivity : BaseActivity() {
     }
 
 
-        override fun onResume() {
-        super.onResume()
-        mp!!.start()
-    }
+
 //    override fun onPause() {
 //        super.onPause()
 //        mp!!.stop()

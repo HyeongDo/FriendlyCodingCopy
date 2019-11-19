@@ -5,4 +5,9 @@
     <string name="boss">보스를 물리쳐야 해요!</string>
     <string name="clear">Clear</string>
     <string name="runBoss">보스</string>
+
+<!--    codeBlock Color-->
+    <string name="codeRed">#FF0000</string>
+    <string name="codeGreen">#00FF00</string>
+    <string name="codeBlue">#0000FF</string>
 </resources>

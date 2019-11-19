@@ -341,6 +341,7 @@
             android:layout_marginTop="10dp"
             android:onClick="@{()->codeBlockVM.runBoss()}"
             android:text="@string/runBoss"
+            android:visibility="invisible"
             app:layout_constraintTop_toTopOf="@+id/rc_code_block_list"
             app:layout_constraintRight_toLeftOf="@+id/run"
             app:layout_constraintTop_toBottomOf="@+id/run" />
